@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+require "debug"
+require "pathname"
+
+PROJ_ROOT = Pathname.new(__dir__).parent.expand_path
+
+Dir.chdir(PROJ_ROOT) do
+  puts "Installing dependencies..."
+  system "bundle install" || abort("Failed to install gems")
+end

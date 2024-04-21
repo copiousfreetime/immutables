@@ -1,0 +1,7 @@
+CONTRIBUTING.md
+HISTORY.md
+LICENSE
+Manifest.txt
+README.md
+Rakefile
+lib/immutables.rb

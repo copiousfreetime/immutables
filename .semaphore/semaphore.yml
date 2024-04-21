@@ -1,0 +1,49 @@
+version: v1.0
+name: CI Pipeline
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2004
+
+auto_cancel:
+  running:
+    when: "branch != 'main'"
+
+blocks:
+  - name: Run tests in Linux environment
+    dependencies: []
+    task:
+      prologue:
+        commands:
+          - checkout
+          - sudo apt-get update && sudo apt-get install -y libyaml-dev
+          - git -C ${HOME}/.rbenv/plugins/ruby-build pull
+      epilogue:
+        always:
+          commands:
+            - test-results publish --name ${RUBY_VERSION} ${TEST_RESULTS_FILE}
+
+      jobs:
+        - name: run tests
+          matrix:
+            - env_var: RUBY_VERSION
+              values:
+                - 3.0.6
+                - 3.1.4
+                - 3.2.3
+                - 3.3.0
+                - jruby-9.4.5.0
+                - truffleruby-23.1.2
+          commands:
+            - source .semaphore/ensure-ruby-version.sh
+            - source .semaphore/ensure-bundle.sh
+            - mkdir -p tmp/test-results/
+            - export TEST_RESULTS_FILE=tmp/test-results/${RUBY_VERSION}.xml
+            - A="--junit --junit-filename=${TEST_RESULTS_FILE}" bundle exec rake test
+
+after_pipeline:
+  task:
+    jobs:
+      - name: Publish Results
+        commands:
+          - test-results gen-pipeline-report
