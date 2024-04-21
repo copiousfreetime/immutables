@@ -1,6 +1,6 @@
-require 'simplecov'
+require "simplecov"
 
-unless ENV['NO_COVERAGE']
+unless ENV["NO_COVERAGE"]
   SimpleCov.start do
     add_filter %r{(^test/)}
     enable_coverage :branch
@@ -10,8 +10,8 @@ end
 
 Bundler.require :test
 
-require 'minitest/autorun'
-require 'minitest/pride'
-require 'immutables'
+require "minitest/autorun"
+require "minitest/pride"
+require "immutables"
 
-TEST_ROOT = Pathname.new( __dir__ ).realpath.freeze
+TEST_ROOT = Pathname.new(__dir__).realpath.freeze

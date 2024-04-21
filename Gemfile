@@ -9,9 +9,9 @@ group :development do
   gem "irb", "~> 1.3"
   gem "reek", "~> 6.3", require: false
   gem "standard", "~> 1.35", require: false
-  gem 'minitest', '~> 5.17'
-  gem 'minitest-junit', '~> 2.0'
-  gem 'rake', '~> 13.0'
-  gem 'rdoc', '~> 6.4'
-  gem 'simplecov', '~> 0.21'
+  gem "minitest", "~> 5.17"
+  gem "minitest-junit", "~> 2.0"
+  gem "rake", "~> 13.0"
+  gem "rdoc", "~> 6.4"
+  gem "simplecov", "~> 0.21"
 end
